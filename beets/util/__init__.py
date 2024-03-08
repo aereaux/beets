@@ -536,6 +536,9 @@ def move(path: bytes, dest: bytes, replace: bool = False):
         finally:
             tmp.close()
 
+        # Copy file metadata
+        shutil.copystat(syspath(path), syspath(dest))
+
         # Move the copied file into place.
         try:
             os.replace(tmp.name, syspath(dest))
